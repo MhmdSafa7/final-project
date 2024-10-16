@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Goals - Personal Budget Manager</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .savings-goal-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Personal Budget Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/income">Income</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view">Expenses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/savingsGoal">Savings Goals</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container mt-4">
+    <h1>Savings Goals</h1>
+
+    <!-- Add Savings Goal Button -->
+    <div class="mb-3">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addSavingsGoalModal">Add Savings Goal</a>
+    </div>
+
+    <!-- Savings Goals List -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="savings-goal-card" th:each="savingsGoal : ${savingsGoals}">
+                <h4 th:text="${savingsGoal.goalName}">Savings Goal Name</h4>
+                <p th:text="'Amount: $' + ${savingsGoal.amount}">Savings Goal Amount</p>
+                <a href="#" class="btn btn-secondary" data-toggle="modal" th:data-target="'#editSavingsGoalModal-' + ${savingsGoal.id}">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Savings Goal Modal -->
+<div class="modal fade" id="addSavingsGoalModal" tabindex="-1" role="dialog" aria-labelledby="addSavingsGoalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSavingsGoalModalLabel">Add Savings Goal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" method="POST" th:action="@{/savingsGoal/add}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="goalName">Goal Name</label>
+                        <input type="text" class="form-control" id="goalName" name="goalName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goalAmount">Amount</label>
+                        <input type="number" class="form-control" id="goalAmount" name="amount" step="0.01" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Goal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Savings Goal Modals (One for Each Goal) -->
+<div th:each="savingsGoal : ${savingsGoals}">
+    <div class="modal fade" th:id="'editSavingsGoalModal-' + ${savingsGoal.id}" tabindex="-1" role="dialog" aria-labelledby="editSavingsGoalModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSavingsGoalModalLabel">Edit Savings Goal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="#" method="POST" th:action="@{/savingsGoal/update}">
+                    <input type="hidden" name="id" th:value="${savingsGoal.id}">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="editGoalName">Goal Name</label>
+                            <input type="text" class="form-control" id="editGoalName" name="goalName" th:value="${savingsGoal.goalName}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editGoalAmount">Amount</label>
+                            <input type="number" class="form-control" id="editGoalAmount" name="amount" th:value="${savingsGoal.amount}" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Goal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-light py-3 mt-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Personal Budget Manager. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

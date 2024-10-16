@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses - Personal Budget Manager</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .expense-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Personal Budget Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/income">Income</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view">Expenses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/savingsGoal">Savings Goals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Reports</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container mt-4">
+    <h1>Expenses</h1>
+    <!-- Add Expense Button -->
+    <div class="mb-3">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addExpenseModal">Add Expense</a>
+    </div>
+
+    <!-- Expense List -->
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Expenses</title>
+    </head>
+    <body>
+    <h1>Expenses</h1>
+    <ul>
+        <li th:each="expense : ${expenses}">
+            <div class="expense-card">
+                <p th:text="${expense.description}">Expense Description</p>
+                <p th:text="${expense.amount}">Expense Amount</p>
+                <p th:text="${#dates.format(expense.date, 'yyyy-MM-dd')}">Expense Date</p>
+                <a th:href="@{/expenses/{id}(id=${expense.id})}" class="btn btn-info">Edit</a>
+                <form th:action="@{/expenses/{id}(id=${expense.id})}" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+
+
+    </body>
+    </html>
+
+    <!-- Repeat Expense Card as needed -->
+        </div>
+    </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div class="modal fade" id="addExpenseModal" tabindex="-1" role="dialog" aria-labelledby="addExpenseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addExpenseModalLabel">Add Expense</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form th:action="@{/expenses}" method="post" th:object="${expense}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="expenseDate">Date</label>
+                        <input type="date" class="form-control" id="expenseDate" name="date" th:field="*{date}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseAmount">Amount</label>
+                        <input type="number" class="form-control" id="expenseAmount" name="amount" step="0.01" th:field="*{amount}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseCategory">Category</label>
+                        <select class="form-control" id="expenseCategory" name="category" th:field="*{category}" required>
+                            <option value="food">Food</option>
+                            <option value="transport">Transport</option>
+                            <option value="utilities">Utilities</option>
+                            <!-- Add more categories as needed -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseNotes">Notes</label>
+                        <textarea class="form-control" id="expenseNotes" name="notes" th:field="*{notes}" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Expense</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-light py-3 mt-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Personal Budget Manager. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

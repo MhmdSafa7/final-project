@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Personal Budget Manager</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5, #d4def1);
+        }
+
+        .navbar {
+            background-color: #007bff !important;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        .container h1, .container h2 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            border: none;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .summary-card h4 {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .summary-card p {
+            font-size: 1.4rem;
+            color: #007bff;
+            font-weight: 600;
+        }
+
+        /* Card List Styling */
+        .list-group-item {
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .list-group-item p {
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #007bff !important;
+            color: white;
+            margin-top: 450px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .summary-card {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Personal Budget Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/income">Income</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view">Expenses</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/savingsGoal">Savings Goals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/register">Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Main Container -->
+<div class="container mt-5">
+    <h1>Dashboard</h1>
+
+    <!-- Summary Cards -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="summary-card text-center">
+                <h4>Total Income</h4>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="summary-card text-center">
+                <h4>Total Expenses</h4>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="summary-card text-center">
+                <h4>Current Savings</h4>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-light py-4 footer">
+    <div class="container text-center ">
+        <p>&copy; 2024 Personal Budget Manager. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

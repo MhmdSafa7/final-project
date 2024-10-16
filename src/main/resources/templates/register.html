@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('https://wallpaperaccess.com/full/656852.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        form div {
+            margin-bottom: 0.75rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            border-color: #74ebd5;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: #50c9c3;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+            }
+        }
+
+        .re-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .re-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Register New User</h2>
+
+    <form th:action="@{/api/register}" method="post" th:object="${user}">
+
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" th:field="*{username}" required>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" th:field="*{password}" required>
+        </div>
+
+        <div>
+            <label for="role">Role</label>
+            <select id="role" name="role" th:field="*{role}" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="USER">User</option>
+                <option value="OWNER">Owner</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required>
+        </div>
+
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required>
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required>
+        </div>
+
+        <div>
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" required>
+        </div>
+
+        <div>
+            <button type="submit">Register</button>
+        </div>
+        <button class="re-btn" onclick="window.location.href='/api/login'">Login</button>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>
